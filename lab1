@@ -1,0 +1,75 @@
+let Grup = [
+        {firstName: 'Ruslan' ,  lastName:  'Savitskyi',   ratting:  '80'},
+        {firstName: 'Sergiy' ,  lastName:  'Revitskyi',     ratting:  '75'},
+        {firstName: 'Vadim',  lastName:  'Samoilov', ratting:  '78'},
+        {firstName: 'Vlad'  ,  lastName:  'Berkischuk', ratting:  '85',},
+        {firstName: 'Vasiliy' ,  lastName:  'Lukyanchuk',     ratting:  '70',},
+        {firstName: 'Dmitro'   ,  lastName:  'Koval',   ratting:  '82',},
+        {firstName: 'Andriy',  lastName:  'Kravchuk',    ratting:  '80',},
+        {firstName: 'Denis',  lastName:  'Shapoval',      ratting:  '75',},
+        {firstName: 'Ivan'  ,  lastName:  'Kiselichnik',      ratting:  '95',},
+    ];
+    
+const showStudentsList = () => {
+    studentList.forEach(function(a){
+        console.log(a.lastName + " " + a.firstName + " " + a.rating);
+    })
+}
+
+const sortByLastname = () => {
+    studentList.sort(function(a, b){
+        return a.lastName > b.lastName ? 1 : -1;
+    });
+    showStudentsList();
+}
+
+const sortByRate = () => {
+    studentList.sort(function(a, b){
+        return a.rating < b.rating ? 1 : -1;
+    })
+    showStudentsList();
+}
+
+const showMaxMinMiddle = () => {
+    var max = studentList[0], min = studentList[0], avg = studentList[0];
+
+    for (var i = 0; i < studentList.length; i++){
+        if (studentList[i].rating > max.rating) max = studentList[i];
+        if (studentList[i].rating < min.rating) min = studentList[i];
+    }
+
+    var average = studentList.reduce(function(acc, current){
+        return acc + current.rating;
+    }, 0) / studentList.length;
+
+    for (var i = 0; i < studentList.length; i++){
+        if (Math.abs(studentList[i].rating - average) < Math.abs(avg.rating - average)){
+            avg = studentList[i];
+        }
+    }
+
+    console.log("Student with minimal rating is: ");
+    console.log(min);
+    console.log("Student with maximal rating is: ");
+    console.log(max);
+    console.log("Average rating is: " + average);
+    console.log("Student with average rating is: ");
+    console.log(avg);
+}
+
+const leaderDistance = () => {
+    //finding a leader student
+    let leader = studentList[0];
+    studentList.forEach(function(i){
+        if (i.rating > leader.rating) leader = i;
+    })
+
+    console.log(leader);
+    console.log('--------------------------');
+
+    var leaderDist = studentList.map(function(i){
+        i.rate = parseFloat((100 - (i.rating / leader.rating) * 100).toFixed(2));
+        console.log(i);
+    })
+
+}
